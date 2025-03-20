@@ -21,6 +21,8 @@ function knightMoves(start, target) {
 };
 
 
+
+// A function that returns the number of moves in the shortest path from one position to a target position.
 function shortestPath(sRow, sCol, boardSize, tRow, tCol) {
 
     const deque = new Deque();
@@ -62,6 +64,8 @@ function shortestPath(sRow, sCol, boardSize, tRow, tCol) {
 };
 
 
+
+// A function that returns an array of positions from one position to a target position given a max number of moves.
 function knightPath(row, col, moves, boardSize, tRow, tCol, prevRow, prevCol) {
     if (row == tRow && col === tCol) {
         return [[row, col]];
