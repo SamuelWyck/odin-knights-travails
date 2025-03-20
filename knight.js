@@ -6,14 +6,15 @@ function knightMoves(start, target) {
 
     const moves = shortestPath(start[0], start[1], boardSide, target[0], target[1]);
     if (moves === -1) {
+        console.log("Invalid positions.")
         return [];
     }
 
-    const path = knightPath(start[0], start[1], moves, boardSide, target[0], target[1], new Set());
+    const path = knightPath(start[0], start[1], moves, boardSide, target[0], target[1], null, null);
     path.reverse();
 
-    const movesWord = (moves > 1) ? "moves" : "move";
-    process.stdout.write(`You made it in ${moves} ${movesWord}! Your path is: `);
+    const movesWord = (moves !== 1) ? "moves" : "move";
+    console.log(`You made it in ${moves} ${movesWord}! Your path is: `);
     console.log(path);
 
     return path;
@@ -61,15 +62,13 @@ function shortestPath(sRow, sCol, boardSize, tRow, tCol) {
 };
 
 
-function knightPath(row, col, moves, boardSize, tRow, tCol, visited) {
+function knightPath(row, col, moves, boardSize, tRow, tCol, prevRow, prevCol) {
     if (row == tRow && col === tCol) {
         return [[row, col]];
     }
     if (moves === 0) {
         return [];
     }
-
-    visited.add(JSON.stringify([row, col]));
 
     const neighbors = [
         [row - 1, col - 2], [row - 1, col + 2],
@@ -84,12 +83,13 @@ function knightPath(row, col, moves, boardSize, tRow, tCol, visited) {
         const nc = neighbor[1];
         const rowValid = nr >= 0 && nr < boardSize;
         const colValid = nc >= 0 && nr < boardSize;
-        const stringKey = JSON.stringify(neighbor);
-        if (rowValid && colValid && !visited.has(stringKey)) {
-            visited.add(stringKey);
-            const result = knightPath(nr, nc, moves - 1, boardSize, tRow, tCol, visited);
+        if (rowValid && colValid && (nr !== prevRow && nr !== prevCol)) {
+            const result = knightPath(nr, nc, moves - 1, boardSize, tRow, tCol, row, col);
             for (let pos of result) {
                 path.push(pos);
+            }
+            if (path.length > 0) {
+                break;
             }
         }
     }
