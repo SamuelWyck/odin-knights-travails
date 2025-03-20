@@ -4,10 +4,19 @@ import Deque from "linked-deque";
 function knightMoves(start, target) {
     const boardSide = 8;
 
-    const steps = shortestPath(start[0], start[1], boardSide, target[0], target[1]);
-    if (steps === -1) {
+    const moves = shortestPath(start[0], start[1], boardSide, target[0], target[1]);
+    if (moves === -1) {
         return [];
     }
+
+    const path = knightPath(start[0], start[1], moves, boardSide, target[0], target[1], new Set());
+    path.reverse();
+
+    const movesWord = (moves > 1) ? "moves" : "move";
+    process.stdout.write(`You made it in ${moves} ${movesWord}! Your path is: `);
+    console.log(path);
+
+    return path;
 };
 
 
@@ -52,5 +61,47 @@ function shortestPath(sRow, sCol, boardSize, tRow, tCol) {
 };
 
 
+function knightPath(row, col, moves, boardSize, tRow, tCol, visited) {
+    if (row == tRow && col === tCol) {
+        return [[row, col]];
+    }
+    if (moves === 0) {
+        return [];
+    }
 
-knightMoves([0, 0], [7, 7])
+    visited.add(JSON.stringify([row, col]));
+
+    const neighbors = [
+        [row - 1, col - 2], [row - 1, col + 2],
+        [row + 1, col - 2], [row + 1, col + 2],
+        [row - 2, col - 1], [row - 2, col + 1],
+        [row + 2, col - 1], [row + 2, col + 1]
+    ];
+
+    const path = [];
+    for (let neighbor of neighbors) {
+        const nr = neighbor[0];
+        const nc = neighbor[1];
+        const rowValid = nr >= 0 && nr < boardSize;
+        const colValid = nc >= 0 && nr < boardSize;
+        const stringKey = JSON.stringify(neighbor);
+        if (rowValid && colValid && !visited.has(stringKey)) {
+            visited.add(stringKey);
+            const result = knightPath(nr, nc, moves - 1, boardSize, tRow, tCol, visited);
+            for (let pos of result) {
+                path.push(pos);
+            }
+        }
+    }
+
+    if (path.length > 0) {
+        path.push([row, col]);
+    }
+    return path;
+};
+
+
+
+// knightMoves([3, 3], [0, 0]);
+
+export default knightMoves;
