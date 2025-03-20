@@ -6,7 +6,7 @@ function knightMoves(start, target) {
 
     const moves = shortestPath(start[0], start[1], boardSide, target[0], target[1]);
     if (moves === -1) {
-        console.log("Invalid positions.")
+        console.log("Invalid start or end. Make sure that the positions are between 0-7 inclusive.");
         return [];
     }
 
@@ -83,7 +83,7 @@ function knightPath(row, col, moves, boardSize, tRow, tCol, prevRow, prevCol) {
         const nc = neighbor[1];
         const rowValid = nr >= 0 && nr < boardSize;
         const colValid = nc >= 0 && nr < boardSize;
-        if (rowValid && colValid && (nr !== prevRow && nr !== prevCol)) {
+        if (rowValid && colValid && (nr !== prevRow && nc !== prevCol)) {
             const result = knightPath(nr, nc, moves - 1, boardSize, tRow, tCol, row, col);
             for (let pos of result) {
                 path.push(pos);
