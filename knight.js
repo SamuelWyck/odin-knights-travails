@@ -26,7 +26,7 @@ function knightMoves(start, target) {
 function shortestPath(sRow, sCol, boardSize, tRow, tCol) {
 
     const deque = new Deque();
-    deque.push([sRow, sCol, 0])
+    deque.push([sRow, sCol, 0]);
     const visited = new Set();
     visited.add(JSON.stringify([sRow, sCol]));
 
