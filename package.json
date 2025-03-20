@@ -1,5 +1,22 @@
 {
+  "name": "odin-knights-travails",
+  "version": "1.0.0",
+  "description": "A search algorithm that returns an array of the moves of the shortest path for a knight to take on any position on a chess board to get to any other postion.",
+  "homepage": "https://github.com/SamuelWyck/odin-knights-travails#readme",
+  "bugs": {
+    "url": "https://github.com/SamuelWyck/odin-knights-travails/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SamuelWyck/odin-knights-travails.git"
+  },
+  "license": "ISC",
+  "author": "",
   "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "dependencies": {
     "linked-deque": "^1.0.4"
   }
