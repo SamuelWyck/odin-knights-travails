@@ -101,7 +101,4 @@ function knightPath(row, col, moves, boardSize, tRow, tCol, visited) {
 };
 
 
-
-// knightMoves([3, 3], [0, 0]);
-
 export default knightMoves;
